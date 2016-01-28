@@ -287,4 +287,15 @@ class Guia
      * Esta informação é opcional e deve conter apenas números (até 10 posições).
      */
     private $c42_identificadorGuia;
+
+
+    public function __set($property, $value)
+    {
+        $this->$property = $value;
+        return true;
+    }
+    public function __get($property)
+    {
+        return $this->$property;
+    }
 }
