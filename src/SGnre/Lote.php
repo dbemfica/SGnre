@@ -127,21 +127,10 @@ class Lote
     public function addGuia(\SGnre\Guia $guia)
     {
         //VALIDAÇAO DA GUIA
-        if( $guia->c01_ufFavorecida === NULL ) throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' não pode ser NULL");
-        if( $guia->c02_receita === NULL ) throw new \InvalidArgumentException("O campo 'c02_receita' não pode ser NULL");
-        if( $guia->c14_dataVencimento === NULL ) throw new \InvalidArgumentException("O campo 'c14_dataVencimento' não pode ser NULL");
-        if( $guia->c33_dataPagamento === NULL ) throw new \InvalidArgumentException("O campo 'c33_dataPagamento' não pode ser NULL");
-        if( $guia->c27_tipoIdentificacaoEmitente !== NULL ){
-            if( $guia->c27_tipoIdentificacaoEmitente !== 1 || $guia->c27_tipoIdentificacaoEmitente !== 2 ){
-                throw new \InvalidArgumentException("O campo 'c27_tipoIdentificacaoEmitente' só aceitas os valores 1 = CNPJ ou 2 = CPF");
-            }
-        }
-
-
+        $this->validar($guia);
 
         //VALIDAÇÃO DA GUIA POR ESTADO
         $uf = "\\SGnre\\Estados\\".$guia->c01_ufFavorecida;
-
         $estado = new $uf;
         $estado->validar($guia);
 
@@ -171,5 +160,85 @@ class Lote
         header('Content-type: text/xml');
         header('Content-Disposition: attachment; filename="text.xml"');
         echo $this->xml;
+    }
+
+    /*
+     * Este metodo valida os campos da Guia
+     */
+    private function validar($guia)
+    {
+        $anexo1 = array(
+            0 => 'AC', //Acre
+            1 => 'AL', //Alagoas
+            2 => 'AM', //Amazonas
+            2 => 'AP', //Amapá
+            3 => 'BA', //Bahia
+            4 => 'CE', //Ceará
+            5 => 'DF', //Distrito Federal
+            6 => 'ES', //Espírito Santo
+            7 => 'GO', //Goiás
+            8 => 'MA', //Maranhão
+            9 => 'MG', //Minas Gerais
+            10 => 'MS', //Mato Grosso do Sul
+            11 => 'MT', //Mato Grosso
+            12 => 'PA', //Pará
+            13 => 'PB', //Paraíba
+            14 => 'PE', //Pernambuco
+            15 => 'PI', //Piauí
+            16 => 'PR', //Paraná
+            17 => 'RJ', //	Rio de Janeiro
+            18 => 'RN', //Rio Grande do Norte
+            19 => 'RO', //Rondônia
+            20 => 'RR', //Roraima
+            21 => 'RS', //Rio Grande do Sul
+            22 => 'SC', //Santa Catarina
+            23 => 'SE', //Sergipe
+            24 => 'SP', //São Paulo
+            25 => 'TO' //Tocantins
+        );
+
+        $anexo2 = array(
+            0 => 1, //CNPJ
+            1 => 2 //CPF
+        );
+
+        $anexo3 = array(
+            0 => '01', //Janeiro
+            1 => '02', //Fevereiro
+            2 => '03', //Março
+            3 => '04', //Abril
+            4 => '05', //Maio
+            5 => '06', //Junho
+            6 => '07', //Julho
+            7 => '08', //Agosto
+            8 => '09', //Setembro
+            9 => '10', //Outubro
+            10 => '11', //Novembro
+            11 => '12' //Dezembro
+        );
+
+        if( $guia->c01_ufFavorecida === NULL ){
+            throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' não pode ser NULL");
+        }else{
+            if( !in_array($guia->c01_ufFavorecida, $anexo1) ){
+                throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' está com uma UF invalida");
+            }
+        }
+
+        if( $guia->c02_receita === NULL ) throw new \InvalidArgumentException("O campo 'c02_receita' não pode ser NULL");
+        if( $guia->c14_dataVencimento === NULL ) throw new \InvalidArgumentException("O campo 'c14_dataVencimento' não pode ser NULL");
+        if( $guia->c33_dataPagamento === NULL ) throw new \InvalidArgumentException("O campo 'c33_dataPagamento' não pode ser NULL");
+
+        if( $guia->c27_tipoIdentificacaoEmitente !== NULL ){
+            if( !in_array($guia->c27_tipoIdentificacaoEmitente, $anexo2) ){
+                throw new \InvalidArgumentException("O campo 'c27_tipoIdentificacaoEmitente' só aceitas os valores 1 = CNPJ ou 2 = CPF");
+            }
+        }
+        if( $guia->mes !== NULL ){
+            if( !in_array($guia->mes, $anexo3) ){
+                throw new \InvalidArgumentException("O campo 'mes' está com um mes invalida");
+            }
+        }
+
     }
 }
