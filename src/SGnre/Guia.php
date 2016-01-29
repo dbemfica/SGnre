@@ -113,7 +113,8 @@ class Guia
 
     /*
      * Contém a inscrição estadual do contribuinte emitente na UF favorecida.
-     * Campo numérico sem espaços ou traços. Caso seja inscrito na UF Favorecida, preencher este campo.
+     * Campo numérico sem espaços ou traços.
+	 * Caso seja inscrito na UF Favorecida, preencher este campo.
      * Caso contrário, esse campo e sua tag poderão ser omitidos.
      */
     private $c17_inscricaoEstadualEmitente;

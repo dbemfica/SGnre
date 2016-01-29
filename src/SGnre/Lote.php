@@ -127,10 +127,17 @@ class Lote
     public function addGuia(\SGnre\Guia $guia)
     {
         //VALIDAÇAO DA GUIA
-        if( $guia->c01_ufFavorecida === NULL ) throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' não ser NULL");
-        if( $guia->c02_receita === NULL ) throw new \InvalidArgumentException("O campo 'c02_receita' não ser NULL");
-        if( $guia->c14_dataVencimento === NULL ) throw new \InvalidArgumentException("O campo 'c14_dataVencimento' não ser NULL");
-        if( $guia->c33_dataPagamento === NULL ) throw new \InvalidArgumentException("O campo 'c33_dataPagamento' não ser NULL");
+        if( $guia->c01_ufFavorecida === NULL ) throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' não pode ser NULL");
+        if( $guia->c02_receita === NULL ) throw new \InvalidArgumentException("O campo 'c02_receita' não pode ser NULL");
+        if( $guia->c14_dataVencimento === NULL ) throw new \InvalidArgumentException("O campo 'c14_dataVencimento' não pode ser NULL");
+        if( $guia->c33_dataPagamento === NULL ) throw new \InvalidArgumentException("O campo 'c33_dataPagamento' não pode ser NULL");
+        if( $guia->c27_tipoIdentificacaoEmitente !== NULL ){
+            if( $guia->c27_tipoIdentificacaoEmitente !== 1 || $guia->c27_tipoIdentificacaoEmitente !== 2 ){
+                throw new \InvalidArgumentException("O campo 'c27_tipoIdentificacaoEmitente' só aceitas os valores 1 = CNPJ ou 2 = CPF");
+            }
+        }
+
+
 
         //VALIDAÇÃO DA GUIA POR ESTADO
         $uf = "\\SGnre\\Estados\\".$guia->c01_ufFavorecida;
