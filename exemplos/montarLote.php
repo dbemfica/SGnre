@@ -10,7 +10,6 @@ $guia->c14_dataVencimento = '2015-10-16';
 $guia->c17_inscricaoEstadualEmitente = 1140037126;
 $guia->c26_produto = 46;
 $guia->c28_tipoDocOrigem = 10;
-$guia->c28_tipoDocOrigem = 10;
 $guia->c33_dataPagamento = '2015-10-16';
 $guia->c36_inscricaoEstadualDestinatario = 1140037126;
 

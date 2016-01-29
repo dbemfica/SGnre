@@ -22,7 +22,31 @@ class SC extends Estados
         13 => 600016 //Taxa
     );
 
-    public function validarReceita($receita)
+    /*
+     * Método utilizado para validar a guia para este estadp
+     * @param \SGnre\Guia  $guia  Um objeto do tipo Guia
+     */
+    public function validar(\SGnre\Guia $guia)
+    {
+        $this->validarReceita($guia->c02_receita);
+    }
+
+    /*
+     * Método utilizado para validar se receita é valida para este estado
+     * @param Int receita
+     */
+    private function validarReceita($receita)
+    {
+        if( !in_array($receita, $this->receita) ){
+            throw new \InvalidArgumentException("Essa receita não é valida para SC");
+        }
+    }
+
+    /*
+     * Método utilizado para validar o código do produto é valida para este estado
+     * @param Int receita
+     */
+    private function validarProduto($receita)
     {
         if( !in_array($receita, $this->receita) ){
             throw new \InvalidArgumentException("Essa receita não é valida para SC");
