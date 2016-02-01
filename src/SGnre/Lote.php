@@ -187,7 +187,7 @@ class Lote
         $this->getBody($lote);
         $this->getFooter($lote);
         header('Content-type: text/xml');
-        header('Content-Disposition: attachment; filename="text.xml"');
+        header('Content-Disposition: attachment; filename="Lote-'.date("Y-m-d H-i-s").'.xml"');
         echo $this->xml;
     }
 
