@@ -154,6 +154,7 @@ class SC extends Estados
                 break;
 
             case 100072:
+                if( $guia->c04_docOrigem === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c04_docOrigem' não pode ser NULL");
                 if( $guia->c28_tipoDocOrigem != 17 ){
                     throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c28_tipoDocOrigem' tem que ser 17 para SC");
                 }
@@ -249,6 +250,18 @@ class SC extends Estados
                     if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c18_enderecoEmitente' não pode ser NULL");
                     if( $guia->c19_municipioEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c19_municipioEmitente' não pode ser NULL");
                     if( $guia->c20_ufEnderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c20_ufEnderecoEmitente' não pode ser NULL");
+                }
+                break;
+
+            case 100072:
+                if( $guia->parcela === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'parcela' não pode ser NULL");
+                if( $guia->c17_inscricaoEstadualEmitente === NULL ){
+                    if( $guia->c27_tipoIdentificacaoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c27_tipoIdentificacaoEmitente' não pode ser NULL");
+                    if( $guia->c03_idContribuinteEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c03_idContribuinteEmitente' não pode ser NULL");
+                    if( $guia->c16_razaoSocialEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c16_razaoSocialEmitente' não pode ser NULL");
+                    if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c18_enderecoEmitente' não pode ser NULL");
+                    if( $guia->c19_municipioEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c19_municipioEmitente' não pode ser NULL");
+                    if( $guia->c20_ufEnderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c20_ufEnderecoEmitente' não pode ser NULL");
                 }
                 break;
         }
