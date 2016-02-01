@@ -67,6 +67,7 @@ class SC extends Estados
      */
     public function validar(\SGnre\Guia $guia)
     {
+        $this->validarDetalhmentoReceita($guia);
         $this->validarReceita($guia->c02_receita);
         $this->validarProduto($guia);
         $this->validarNumeroDocumentoOrigem($guia);
@@ -84,6 +85,26 @@ class SC extends Estados
         }
     }
 
+    /*
+     * Método utilizado para validar o detalhamento de receita
+     * @param \SGnre\Guia  $guia  Um objeto do tipo Guia
+     */
+    private function validarDetalhmentoReceita($guia)
+    {
+        switch ($guia->c02_receita) {
+            case 100048:
+                if( $guia->c25_detalhamentoReceita === NULL ){
+                    throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c25_detalhamentoReceita' não pode ser NULL para SC");
+                }
+                $detalhementoReceita = $this->getDetalhamentoReceita($guia->c02_receita);
+                if( !in_array( $guia->c25_detalhamentoReceita, $detalhementoReceita) ){
+                    throw new \InvalidArgumentException("Esse detalhamento de receita não é valida para SC");
+                }
+                break;
+        }
+
+
+    }
     /*
      * Método utilizado para validar o código do produto
      * @param \SGnre\Guia  $guia  Um objeto do tipo Guia
@@ -112,6 +133,7 @@ class SC extends Estados
             case 100080:
             case 100099:
             case 100102:
+            if( $guia->c04_docOrigem === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030,100080,100099,100102 o campo 'c04_docOrigem' não pode ser NULL");
                 if( $guia->c28_tipoDocOrigem != 10 ){
                     throw new \InvalidArgumentException("Quando a receita é 100021,100030,100080,100099,100102 o campo 'c28_tipoDocOrigem' tem que ser 10 para SC");
                 }
@@ -177,6 +199,46 @@ class SC extends Estados
                 }
 
                 break;
+
+            case 100048:
+                if( $guia->c10_valorTotal === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c10_valorTotal' não pode ser NULL");
+                if( $guia->c17_inscricaoEstadualEmitente === NULL ){
+                    if( $guia->c27_tipoIdentificacaoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c27_tipoIdentificacaoEmitente' não pode ser NULL");
+                    if( $guia->c03_idContribuinteEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c03_idContribuinteEmitente' não pode ser NULL");
+                    if( $guia->c16_razaoSocialEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c16_razaoSocialEmitente' não pode ser NULL");
+                    if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c18_enderecoEmitente' não pode ser NULL");
+                    if( $guia->c19_municipioEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c19_municipioEmitente' não pode ser NULL");
+                    if( $guia->c20_ufEnderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100021,100030 o campo 'c20_ufEnderecoEmitente' não pode ser NULL");
+                }
+                break;
         }
+    }
+
+    /*
+     * Método retorna um array com o detalhamento de receita refente a receitada passada
+     * @param Int receita
+     */
+    private function getDetalhamentoReceita($receita){
+
+        $vetor = array(
+            100048 => array(
+                0 => '000010', //10022 - Utilizado para recolhimento do imposto postergado por regime especial
+                1 => '000011', //10030 - Repasse da refinaria - Combustíveis e outros
+                2 => '000012', //10049 - Substituição tributária - prazo normal
+                3 => '000013', //10200 - Substituição Tributária - mercadoria desacompanhada de GNRE
+                4 => '000014', //10251 - Repasse da refinaria - Combustíveis e outros
+                5 => '000015', //10383 - Utilizado para recolhimento da parcela única do imposto, equivalente a 100% do montante devido no mês anterior (ver classe 10391)
+                6 => '000016', //10391 - Utilizado para recolhimento do valor remanescente do saldo devedor do imposto (ver classe 10383)
+                7 => '000050' //10464 - Substituição Tributária declarado DeSTDA vencimento dia 10 segundo mês.
+            ),
+            600016 => array(
+                0 => '000009' //10 - Petições ou requerimentos dirigidos a autoridades administrativas estaduais
+            )
+        );
+
+        foreach ($vetor[$receita] as $valor) {
+            $detalhmentoReceita[] = $valor;
+        }
+        return $detalhmentoReceita;
     }
 }

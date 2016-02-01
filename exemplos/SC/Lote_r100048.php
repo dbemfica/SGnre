@@ -3,10 +3,10 @@ require_once "../../vendor/autoload.php";
 
 $guia = new \SGnre\Guia();
 $guia->c01_UfFavorecida = "SC";
-$guia->c02_receita = 100021;
+$guia->c02_receita = 100048;
+$guia->c25_detalhamentoReceita = '000010';
 $guia->c27_tipoIdentificacaoEmitente = 1;
 $guia->c03_idContribuinteEmitente = '05698745000145';
-$guia->c04_docOrigem = '5712';
 $guia->c28_tipoDocOrigem = '10';
 $guia->c10_valorTotal = '10.00';
 $guia->c14_dataVencimento = '2016-02-01';

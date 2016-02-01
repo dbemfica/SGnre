@@ -16,8 +16,6 @@ $guia->c20_ufEnderecoEmitente = 'RS';
 $guia->c21_cepEmitente = '95500000';
 $guia->c21_cepEmitente = '95500000';
 $guia->c33_dataPagamento = '2016-02-01';
-$guia->mes = '01';
-$guia->ano = '2016';
 
 $lote = new \SGnre\Lote();
 $lote->addGuia($guia);
