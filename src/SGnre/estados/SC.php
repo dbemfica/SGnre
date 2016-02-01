@@ -112,31 +112,31 @@ class SC extends Estados
             case 100080:
             case 100099:
             case 100102:
-                if( $guia->c28_tipoDocOrigem !== 10 ){
+                if( $guia->c28_tipoDocOrigem != 10 ){
                     throw new \InvalidArgumentException("Quando a receita é 100021,100030,100080,100099,100102 o campo 'c28_tipoDocOrigem' tem que ser 10 para SC");
                 }
                 break;
 
             case 100056:
-                if( $guia->c28_tipoDocOrigem !== 18 && $guia->c28_tipoDocOrigem !== 4 && !$guia->c28_tipoDocOrigem !== 6 ){
+                if( $guia->c28_tipoDocOrigem != 18 && $guia->c28_tipoDocOrigem != 4 && !$guia->c28_tipoDocOrigem != 6 ){
                     throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c28_tipoDocOrigem' tem que ser 18,4,6 para SC");
                 }
                 break;
 
             case 100064:
-                if( $guia->c28_tipoDocOrigem !== 16 ){
+                if( $guia->c28_tipoDocOrigem != 16 ){
                     throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c28_tipoDocOrigem' tem que ser 16 para SC");
                 }
                 break;
 
             case 100072:
-                if( $guia->c28_tipoDocOrigem !== 17 ){
+                if( $guia->c28_tipoDocOrigem != 17 ){
                     throw new \InvalidArgumentException("Quando a receita é 100072 o campo 'c28_tipoDocOrigem' tem que ser 17 para SC");
                 }
                 break;
 
             case 150010:
-                if( $guia->c28_tipoDocOrigem !== 14 ){
+                if( $guia->c28_tipoDocOrigem != 14 ){
                     throw new \InvalidArgumentException("Quando a receita é 150010 o campo 'c28_tipoDocOrigem' tem que ser 14 para SC");
                 }
                 break;
