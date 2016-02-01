@@ -68,11 +68,28 @@ class Lote
             if( $guia->c20_ufEnderecoEmitente !== NULL )            $c20 = $this->dom->createElement("c20_ufEnderecoEmitente",$guia->c20_ufEnderecoEmitente);
             if( $guia->c21_cepEmitente !== NULL )                   $c21 = $this->dom->createElement("c21_cepEmitente",$guia->c21_cepEmitente);
             if( $guia->c22_telefoneEmitente !== NULL )              $c22 = $this->dom->createElement("c22_telefoneEmitente",$guia->c22_telefoneEmitente);
-            if( $guia->c34_tipoIdentificacaoDestinatario !== NULL ) $c34 = $this->dom->createElement("c34_tipoIdentificacaoDestinatario",$guia->c34_tipoIdentificacaoDestinatario);
-            if( $guia->c35_idContribuinteDestinatario !== NULL )    $c35 = $this->dom->createElement("c35_idContribuinteDestinatario",$guia->c35_idContribuinteDestinatario);
+
+            if( $guia->c34_tipoIdentificacaoDestinatario !== NULL ){
+                $c34 = $this->dom->createElement("c34_tipoIdentificacaoDestinatario",$guia->c34_tipoIdentificacaoDestinatario);
+                if( $guia->c35_idContribuinteDestinatario !== NULL ){
+                    $c35 = $this->dom->createElement("c35_idContribuinteDestinatario");
+                }else{
+                    throw new \InvalidArgumentException("O campo 'c35_idContribuinteDestinatario' não pode ser NULL quando o 'c34_tipoIdentificacaoDestinatario' for diferente de NULL");
+                }
+                if( $guia->c34_tipoIdentificacaoDestinatario === 1 )
+                    $c35_idContribuinteDestinatario = $this->dom->createElement('CNPJ',$guia->c35_idContribuinteDestinatario);
+
+                if( $guia->c34_tipoIdentificacaoDestinatario === 2 )
+                    $c35_idContribuinteDestinatario = $this->dom->createElement('CPF',$guia->c35_idContribuinteDestinatario);
+
+                $c35->appendChild($c35_idContribuinteDestinatario);
+            }
             if( $guia->c36_inscricaoEstadualDestinatario !== NULL ) $c36 = $this->dom->createElement("c36_inscricaoEstadualDestinatario",$guia->c36_inscricaoEstadualDestinatario);
             if( $guia->c37_razaoSocialDestinatario !== NULL )       $c37 = $this->dom->createElement("c37_razaoSocialDestinatario",$guia->c37_razaoSocialDestinatario);
             if( $guia->c38_municipioDestinatario !== NULL )         $c38 = $this->dom->createElement("c38_municipioDestinatario",$guia->c38_municipioDestinatario);
+
+
+
             if( $guia->c33_dataPagamento !== NULL )                 $c33 = $this->dom->createElement("c33_dataPagamento",$guia->c33_dataPagamento);
 
             if( $guia->periodo !== NULL || $guia->mes !== NULL || $guia->ano !== NULL || $guia->parcela !== NULL ){

@@ -140,12 +140,14 @@ class SC extends Estados
                 break;
 
             case 100056:
+                if( $guia->c04_docOrigem === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c04_docOrigem' não pode ser NULL");
                 if( $guia->c28_tipoDocOrigem != 18 && $guia->c28_tipoDocOrigem != 4 && !$guia->c28_tipoDocOrigem != 6 ){
                     throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c28_tipoDocOrigem' tem que ser 18,4,6 para SC");
                 }
                 break;
 
             case 100064:
+                if( $guia->c04_docOrigem === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c04_docOrigem' não pode ser NULL");
                 if( $guia->c28_tipoDocOrigem != 16 ){
                     throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c28_tipoDocOrigem' tem que ser 16 para SC");
                 }
@@ -209,9 +211,44 @@ class SC extends Estados
                     if( $guia->c27_tipoIdentificacaoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c27_tipoIdentificacaoEmitente' não pode ser NULL");
                     if( $guia->c03_idContribuinteEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c03_idContribuinteEmitente' não pode ser NULL");
                     if( $guia->c16_razaoSocialEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c16_razaoSocialEmitente' não pode ser NULL");
-                    if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048,100030 o campo 'c18_enderecoEmitente' não pode ser NULL");
+                    if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c18_enderecoEmitente' não pode ser NULL");
                     if( $guia->c19_municipioEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c19_municipioEmitente' não pode ser NULL");
                     if( $guia->c20_ufEnderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100048 o campo 'c20_ufEnderecoEmitente' não pode ser NULL");
+                }
+                break;
+
+            case 100056:
+                if( $guia->c06_valorPrincipal === NULL && $guia->c10_valorTotal === NULL ){
+                    throw new \InvalidArgumentException("Quando a receita é 100056 não pode os campos 'c06_valorPrincipal', 'c10_valorTotal' estabem hambos NULLs");
+                }
+                if( $guia->c17_inscricaoEstadualEmitente === NULL ){
+                    if( $guia->c27_tipoIdentificacaoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c27_tipoIdentificacaoEmitente' não pode ser NULL");
+                    if( $guia->c03_idContribuinteEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c03_idContribuinteEmitente' não pode ser NULL");
+                    if( $guia->c16_razaoSocialEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c16_razaoSocialEmitente' não pode ser NULL");
+                    if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c18_enderecoEmitente' não pode ser NULL");
+                    if( $guia->c19_municipioEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c19_municipioEmitente' não pode ser NULL");
+                    if( $guia->c20_ufEnderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c20_ufEnderecoEmitente' não pode ser NULL");
+                }
+
+                if( $guia->c06_valorPrincipal !== NULL && $guia->c10_valorTotal === NULL ){
+                    if( $guia->c36_inscricaoEstadualDestinatario === NULL ){
+                        if( $guia->c34_tipoIdentificacaoDestinatario === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c34_tipoIdentificacaoDestinatario' não pode ser NULL");
+                        if( $guia->c35_idContribuinteDestinatario === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c35_idContribuinteDestinatario' não pode ser NULL");
+                        if( $guia->c37_razaoSocialDestinatario === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c37_razaoSocialDestinatario' não pode ser NULL");
+                        if( $guia->c38_municipioDestinatario === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c38_municipioDestinatario' não pode ser NULL");
+
+                    }
+                }
+                break;
+
+            case 100064:
+                if( $guia->c17_inscricaoEstadualEmitente === NULL ){
+                    if( $guia->c27_tipoIdentificacaoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c27_tipoIdentificacaoEmitente' não pode ser NULL");
+                    if( $guia->c03_idContribuinteEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c03_idContribuinteEmitente' não pode ser NULL");
+                    if( $guia->c16_razaoSocialEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c16_razaoSocialEmitente' não pode ser NULL");
+                    if( $guia->c18_enderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c18_enderecoEmitente' não pode ser NULL");
+                    if( $guia->c19_municipioEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c19_municipioEmitente' não pode ser NULL");
+                    if( $guia->c20_ufEnderecoEmitente === NULL ) throw new \InvalidArgumentException("Quando a receita é 100064 o campo 'c20_ufEnderecoEmitente' não pode ser NULL");
                 }
                 break;
         }
