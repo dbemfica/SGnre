@@ -2,23 +2,21 @@
 require_once "../vendor/autoload.php";
 
 $guia = new \SGnre\Guia();
-$guia->c01_ufFavorecida = "SC";
-$guia->c02_receita = 100099;
-$guia->c04_docOrigem = 6487;
-$guia->c06_valorPrincipal = 269.50;
-$guia->c14_dataVencimento = '2015-10-16';
-$guia->c17_inscricaoEstadualEmitente = 1140037126;
-$guia->c26_produto = 46;
-$guia->c28_tipoDocOrigem = 10;
-$guia->c33_dataPagamento = '2015-10-16';
-$guia->c36_inscricaoEstadualDestinatario = 1140037126;
-
-
-$campoExtra['codigo'] = 91;
-$campoExtra['tipo'] = 'T';
-$campoExtra['valor'] = '43151002032675000148550010000064871000064870';
-
-$guia->c39_campoExtra = $campoExtra;
+$guia->c01_UfFavorecida = "SC";
+$guia->c02_receita = 100013;
+$guia->c27_tipoIdentificacaoEmitente = 1;
+$guia->c03_idContribuinteEmitente = '05556927000126';
+$guia->c06_valorPrincipal = '10.00';
+$guia->c14_dataVencimento = '2016-02-01';
+$guia->c16_razaoSocialEmitente = 'Proner Informatica';
+$guia->c18_enderecoEmitente = 'Rua teste';
+$guia->c19_municipioEmitente = '17608';
+$guia->c20_ufEnderecoEmitente = 'RS';
+$guia->c21_cepEmitente = '95500000';
+$guia->c21_cepEmitente = '95500000';
+$guia->c33_dataPagamento = '2016-02-01';
+$guia->mes = '01';
+$guia->ano = '2016';
 
 $lote = new \SGnre\Lote();
 $lote->addGuia($guia);

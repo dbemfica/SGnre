@@ -8,7 +8,7 @@ class Guia
     /*
      * Contém a sigla da UF favorecida. Campo com 2 dígitos.
      */
-    private $c01_ufFavorecida;
+    private $c01_UfFavorecida;
 
     /*
      * Contém o código da receita. Campo numérico com 6 dígitos.

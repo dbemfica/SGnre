@@ -31,14 +31,30 @@ class Lote
         $lote->appendChild($guias);
 
         foreach( $this->guias as $guia ){
-            $tDadosGnre = $this->dom->createElement('TDadosGnre');
+            $tDadosGnre = $this->dom->createElement('TDadosGNRE');
 
-            if( $guia->c01_ufFavorecida !== NULL )                  $c1 = $this->dom->createElement("c01_ufFavorecida",$guia->c01_ufFavorecida);
+            if( $guia->c01_UfFavorecida !== NULL )                  $c1 = $this->dom->createElement("c01_UfFavorecida",$guia->c01_UfFavorecida);
             if( $guia->c02_receita !== NULL )                       $c2 = $this->dom->createElement("c02_receita",$guia->c02_receita);
             if( $guia->c25_detalhamentoReceita !== NULL )           $c25 = $this->dom->createElement("c25_detalhamentoReceita",$guia->c25_detalhamentoReceita);
             if( $guia->c26_produto !== NULL )                       $c26 = $this->dom->createElement("c26_produto",$guia->c26_produto);
-            if( $guia->c27_tipoIdentificacaoEmitente !== NULL )     $c27 = $this->dom->createElement("c27_tipoIdentificacaoEmitente",$guia->c27_tipoIdentificacaoEmitente);
-            if( $guia->c03_idContribuinteEmitente !== NULL )        $c3 = $this->dom->createElement("c03_idContribuinteEmitente",$guia->c03_idContribuinteEmitente);
+
+            if( $guia->c27_tipoIdentificacaoEmitente !== NULL ){
+                $c27 = $this->dom->createElement("c27_tipoIdentificacaoEmitente",$guia->c27_tipoIdentificacaoEmitente);
+                if( $guia->c03_idContribuinteEmitente !== NULL ){
+                    $c3 = $this->dom->createElement("c03_idContribuinteEmitente");
+                }else{
+                    throw new \InvalidArgumentException("O campo 'c03_idContribuinteEmitente' não pode ser NULL quando o 'c27_tipoIdentificacaoEmitente' for diferente de NULL");
+                }
+                if( $guia->c27_tipoIdentificacaoEmitente === 1 )
+                    $c03_idContribuinteEmitente = $this->dom->createElement('CNPJ',$guia->c03_idContribuinteEmitente);
+
+                if( $guia->c27_tipoIdentificacaoEmitente === 2 )
+                    $c03_idContribuinteEmitente = $this->dom->createElement('CPF',$guia->c03_idContribuinteEmitente);
+
+                $c3->appendChild($c03_idContribuinteEmitente);
+            }
+
+
             if( $guia->c28_tipoDocOrigem !== NULL )                 $c28 = $this->dom->createElement("c28_tipoDocOrigem",$guia->c28_tipoDocOrigem);
             if( $guia->c04_docOrigem !== NULL )                     $c4 = $this->dom->createElement("c04_docOrigem",$guia->c04_docOrigem);
             if( $guia->c06_valorPrincipal !== NULL )                $c6 = $this->dom->createElement("c06_valorPrincipal",$guia->c06_valorPrincipal);
@@ -58,11 +74,27 @@ class Lote
             if( $guia->c37_razaoSocialDestinatario !== NULL )       $c37 = $this->dom->createElement("c37_razaoSocialDestinatario",$guia->c37_razaoSocialDestinatario);
             if( $guia->c38_municipioDestinatario !== NULL )         $c38 = $this->dom->createElement("c38_municipioDestinatario",$guia->c38_municipioDestinatario);
             if( $guia->c33_dataPagamento !== NULL )                 $c33 = $this->dom->createElement("c33_dataPagamento",$guia->c33_dataPagamento);
-            if( $guia->c05_referencia !== NULL )                    $c5 = $this->dom->createElement("c05_referencia",$guia->c05_referencia);
-            if( $guia->periodo !== NULL )                           $periodo = $this->dom->createElement("periodo",$guia->periodo);
-            if( $guia->mes !== NULL )                               $mes = $this->dom->createElement("mes",$guia->mes);
-            if( $guia->ano !== NULL )                               $ano = $this->dom->createElement("mes",$guia->ano);
-            if( $guia->parcela !== NULL )                           $parcela = $this->dom->createElement("parcela",$guia->parcela);
+
+            if( $guia->periodo !== NULL || $guia->mes !== NULL || $guia->ano !== NULL || $guia->parcela !== NULL ){
+                $c5 = $this->dom->createElement("c05_referencia");
+                if( $guia->periodo !== NULL ){
+                    $periodo = $this->dom->createElement('periodo',$guia->periodo);
+                    $c5->appendChild($periodo);
+                }
+                if( $guia->mes !== NULL ){
+                    $mes = $this->dom->createElement('mes',$guia->mes);
+                    $c5->appendChild($mes);
+                }
+                if( $guia->ano !== NULL ){
+                    $ano = $this->dom->createElement('ano',$guia->ano);
+                    $c5->appendChild($ano);
+                }
+                if( $guia->parcela !== NULL ){
+                    $parcela = $this->dom->createElement('parcela',$guia->parcela);
+                    $c5->appendChild($parcela);
+                }
+            }
+
             if( !empty($guia->c39_campoExtra) ){
                 $c39 = $this->dom->createElement("c39_campoExtra");
                 $c39_aux = $this->dom->createElement("campoExtra");
@@ -76,7 +108,7 @@ class Lote
             if( $guia->tipo !== NULL )                              $tipo = $this->dom->createElement("tipo",$guia->tipo);
             if( $guia->valor !== NULL )                             $valor = $this->dom->createElement("valor",$guia->valor);
 
-            if( $guia->c01_ufFavorecida !== NULL )                  $tDadosGnre->appendChild($c1);
+            if( $guia->c01_UfFavorecida !== NULL )                  $tDadosGnre->appendChild($c1);
             if( $guia->c02_receita !== NULL )                       $tDadosGnre->appendChild($c2);
             if( $guia->c25_detalhamentoReceita !== NULL )           $tDadosGnre->appendChild($c25);
             if( $guia->c26_produto !== NULL )                       $tDadosGnre->appendChild($c26);
@@ -102,10 +134,7 @@ class Lote
             if( $guia->c38_municipioDestinatario !== NULL )         $tDadosGnre->appendChild($c38);
             if( $guia->c33_dataPagamento !== NULL )                 $tDadosGnre->appendChild($c33);
             if( $guia->c05_referencia !== NULL )                    $tDadosGnre->appendChild($c5);
-            if( $guia->periodo !== NULL )                           $tDadosGnre->appendChild($periodo);
-            if( $guia->mes !== NULL )                               $tDadosGnre->appendChild($mes);
-            if( $guia->ano !== NULL )                               $tDadosGnre->appendChild($ano);
-            if( $guia->parcela !== NULL )                           $tDadosGnre->appendChild($parcela);
+            if( isset($c5) )                                        $tDadosGnre->appendChild($c5);
             if( !empty($guia->c39_campoExtra) )                     $tDadosGnre->appendChild($c39);
             if( $guia->codigo !== NULL )                            $tDadosGnre->appendChild($codigo);
             if( $guia->tipo !== NULL )                              $tDadosGnre->appendChild($tipo);
@@ -130,7 +159,7 @@ class Lote
         $this->validar($guia);
 
         //VALIDAÇÃO DA GUIA POR ESTADO
-        $uf = "\\SGnre\\Estados\\".$guia->c01_ufFavorecida;
+        $uf = "\\SGnre\\Estados\\".$guia->c01_UfFavorecida;
         $estado = new $uf;
         $estado->validar($guia);
 
@@ -186,7 +215,7 @@ class Lote
             14 => 'PE', //Pernambuco
             15 => 'PI', //Piauí
             16 => 'PR', //Paraná
-            17 => 'RJ', //	Rio de Janeiro
+            17 => 'RJ', //Rio de Janeiro
             18 => 'RN', //Rio Grande do Norte
             19 => 'RO', //Rondônia
             20 => 'RR', //Roraima
@@ -217,12 +246,8 @@ class Lote
             11 => '12' //Dezembro
         );
 
-        if( $guia->c01_ufFavorecida === NULL ){
-            throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' não pode ser NULL");
-        }else{
-            if( !in_array($guia->c01_ufFavorecida, $anexo1) ){
+        if( $guia->c01_UfFavorecida === NULL ){
                 throw new \InvalidArgumentException("O campo 'c01_ufFavorecida' está com uma UF invalida");
-            }
         }
 
         if( $guia->c02_receita === NULL ) throw new \InvalidArgumentException("O campo 'c02_receita' não pode ser NULL");
@@ -233,7 +258,14 @@ class Lote
             if( !in_array($guia->c27_tipoIdentificacaoEmitente, $anexo2) ){
                 throw new \InvalidArgumentException("O campo 'c27_tipoIdentificacaoEmitente' só aceitas os valores 1 = CNPJ ou 2 = CPF");
             }
+            if( $guia->c03_idContribuinteEmitente === NULL){
+                throw new \InvalidArgumentException("O campo 'c03_idContribuinteEmitente' não pode ser NULL quando o 'c27_tipoIdentificacaoEmitente' for diferente de NULL");
+            }
         }
+        if( $guia->c03_idContribuinteEmitente !== NULL && $guia->c27_tipoIdentificacaoEmitente === NULL ){
+            throw new \InvalidArgumentException("O campo 'c27_tipoIdentificacaoEmitente' não pode ser NULL quando o 'c03_idContribuinteEmitente' for diferente de NULL");
+        }
+
         if( $guia->mes !== NULL ){
             if( !in_array($guia->mes, $anexo3) ){
                 throw new \InvalidArgumentException("O campo 'mes' está com um mes invalida");
