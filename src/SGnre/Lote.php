@@ -158,10 +158,13 @@ class Lote
         //VALIDAÇAO DA GUIA
         $this->validar($guia);
 
-        //VALIDAÇÃO DA GUIA POR ESTADO
-        $uf = "\\SGnre\\Estados\\".$guia->c01_UfFavorecida;
-        $estado = new $uf;
-        $estado->validar($guia);
+        try{
+            $uf = "\\SGnre\\Estados\\".$guia->c01_UfFavorecida;
+            $estado = new $uf;
+            $estado->validar($guia);
+        }catch(\InvalidArgumentException $e){
+            exit($e->getMessage());
+        }
 
         $this->guias[] = $guia;
     }
