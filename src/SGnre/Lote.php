@@ -112,10 +112,10 @@ class Lote
                 }
             }
 
-            if( !empty($guia->c39_campoExtra) ){
-                $c39 = $this->dom->createElement("c39_campoExtra");
+            if( $guia->c39_camposExtras !== NULL ){
+                $c39 = $this->dom->createElement("c39_camposExtras");
                 $c39_aux = $this->dom->createElement("campoExtra");
-                foreach( $guia->c39_campoExtra as $k => $v ){
+                foreach( $guia->c39_camposExtras as $k => $v ){
                     $aux = $this->dom->createElement($k,$v);
                     $c39_aux->appendChild($aux);
                 }
@@ -125,37 +125,36 @@ class Lote
             if( $guia->tipo !== NULL )                              $tipo = $this->dom->createElement("tipo",$guia->tipo);
             if( $guia->valor !== NULL )                             $valor = $this->dom->createElement("valor",$guia->valor);
 
-            if( $guia->c01_UfFavorecida !== NULL )                  $tDadosGnre->appendChild($c1);
-            if( $guia->c02_receita !== NULL )                       $tDadosGnre->appendChild($c2);
-            if( $guia->c25_detalhamentoReceita !== NULL )           $tDadosGnre->appendChild($c25);
-            if( $guia->c26_produto !== NULL )                       $tDadosGnre->appendChild($c26);
-            if( $guia->c27_tipoIdentificacaoEmitente !== NULL )     $tDadosGnre->appendChild($c27);
-            if( $guia->c03_idContribuinteEmitente !== NULL )        $tDadosGnre->appendChild($c3);
-            if( $guia->c28_tipoDocOrigem !== NULL )                 $tDadosGnre->appendChild($c28);
-            if( $guia->c04_docOrigem !== NULL )                     $tDadosGnre->appendChild($c4);
-            if( $guia->c06_valorPrincipal !== NULL )                $tDadosGnre->appendChild($c6);
-            if( $guia->c10_valorTotal !== NULL )                    $tDadosGnre->appendChild($c10);
-            if( $guia->c14_dataVencimento !== NULL )                $tDadosGnre->appendChild($c14);
-            if( $guia->c15_convenio !== NULL )                      $tDadosGnre->appendChild($c15);
-            if( $guia->c16_razaoSocialEmitente !== NULL )           $tDadosGnre->appendChild($c16);
-            if( $guia->c17_inscricaoEstadualEmitente !== NULL )     $tDadosGnre->appendChild($c17);
-            if( $guia->c18_enderecoEmitente !== NULL )              $tDadosGnre->appendChild($c18);
-            if( $guia->c19_municipioEmitente !== NULL )             $tDadosGnre->appendChild($c19);
-            if( $guia->c20_ufEnderecoEmitente !== NULL )            $tDadosGnre->appendChild($c20);
-            if( $guia->c21_cepEmitente !== NULL )                   $tDadosGnre->appendChild($c21);
-            if( $guia->c22_telefoneEmitente !== NULL )              $tDadosGnre->appendChild($c22);
-            if( $guia->c34_tipoIdentificacaoDestinatario !== NULL ) $tDadosGnre->appendChild($c34);
-            if( $guia->c35_idContribuinteDestinatario !== NULL )    $tDadosGnre->appendChild($c35);
-            if( $guia->c36_inscricaoEstadualDestinatario !== NULL ) $tDadosGnre->appendChild($c36);
-            if( $guia->c37_razaoSocialDestinatario !== NULL )       $tDadosGnre->appendChild($c37);
-            if( $guia->c38_municipioDestinatario !== NULL )         $tDadosGnre->appendChild($c38);
-            if( $guia->c33_dataPagamento !== NULL )                 $tDadosGnre->appendChild($c33);
-            if( $guia->c05_referencia !== NULL )                    $tDadosGnre->appendChild($c5);
-            if( isset($c5) )                                        $tDadosGnre->appendChild($c5);
-            if( !empty($guia->c39_campoExtra) )                     $tDadosGnre->appendChild($c39);
-            if( $guia->codigo !== NULL )                            $tDadosGnre->appendChild($codigo);
-            if( $guia->tipo !== NULL )                              $tDadosGnre->appendChild($tipo);
-            if( $guia->valor !== NULL )                             $tDadosGnre->appendChild($valor);
+            if( isset($c1) )        $tDadosGnre->appendChild($c1);
+            if( isset($c2) )        $tDadosGnre->appendChild($c2);
+            if( isset($c25) )       $tDadosGnre->appendChild($c25);
+            if( isset($c26) )       $tDadosGnre->appendChild($c26);
+            if( isset($c27) )       $tDadosGnre->appendChild($c27);
+            if( isset($c3) )        $tDadosGnre->appendChild($c3);
+            if( isset($c28) )       $tDadosGnre->appendChild($c28);
+            if( isset($c4) )        $tDadosGnre->appendChild($c4);
+            if( isset($c6) )        $tDadosGnre->appendChild($c6);
+            if( isset($c10) )       $tDadosGnre->appendChild($c10);
+            if( isset($c14) )       $tDadosGnre->appendChild($c14);
+            if( isset($c15) )       $tDadosGnre->appendChild($c15);
+            if( isset($c16) )       $tDadosGnre->appendChild($c16);
+            if( isset($c17) )       $tDadosGnre->appendChild($c17);
+            if( isset($c18) )       $tDadosGnre->appendChild($c18);
+            if( isset($c19) )       $tDadosGnre->appendChild($c19);
+            if( isset($c20) )       $tDadosGnre->appendChild($c20);
+            if( isset($c21) )       $tDadosGnre->appendChild($c21);
+            if( isset($c22) )       $tDadosGnre->appendChild($c22);
+            if( isset($c34) )       $tDadosGnre->appendChild($c34);
+            if( isset($c35) )       $tDadosGnre->appendChild($c35);
+            if( isset($c36) )       $tDadosGnre->appendChild($c36);
+            if( isset($c37) )       $tDadosGnre->appendChild($c37);
+            if( isset($c38) )       $tDadosGnre->appendChild($c38);
+            if( isset($c33) )       $tDadosGnre->appendChild($c33);
+            if( isset($c5) )        $tDadosGnre->appendChild($c5);
+            if( isset($c39) )       $tDadosGnre->appendChild($c39);
+            if( isset($codigo) )    $tDadosGnre->appendChild($codigo);
+            if( isset($tipo) )      $tDadosGnre->appendChild($tipo);
+            if( isset($valor) )     $tDadosGnre->appendChild($valor);
             $guias->appendChild($tDadosGnre);
         }
     }
@@ -291,6 +290,5 @@ class Lote
                 throw new \InvalidArgumentException("O campo 'mes' está com um mes invalida");
             }
         }
-
     }
 }
