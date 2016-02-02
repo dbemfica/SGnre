@@ -141,8 +141,18 @@ class SC extends Estados
 
             case 100056:
                 if( $guia->c04_docOrigem === NULL ) throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c04_docOrigem' não pode ser NULL");
-                if( $guia->c28_tipoDocOrigem != 18 && $guia->c28_tipoDocOrigem != 4 && !$guia->c28_tipoDocOrigem != 6 ){
-                    throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c28_tipoDocOrigem' tem que ser 18,4,6 para SC");
+                if( $guia->c10_valorTotal !== NULL && $guia->c06_valorPrincipal !== NULL ){
+                    throw new \InvalidArgumentException("Quando a receita é 100056 você tem que escolher o 'c10_valorTotal' ou 'c06_valorPrincipal'");
+                }
+                if( $guia->c10_valorTotal !== NULL ){
+                    if( $guia->c28_tipoDocOrigem != '04' && !$guia->c28_tipoDocOrigem != '06' ){
+                        throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c28_tipoDocOrigem' tem que ser 4,6 para SC");
+                    }
+                }
+                if( $guia->c06_valorPrincipal !== NULL ){
+                    if( $guia->c28_tipoDocOrigem != 18 ){
+                        throw new \InvalidArgumentException("Quando a receita é 100056 o campo 'c28_tipoDocOrigem' tem que ser 18 para SC");
+                    }
                 }
                 break;
 
