@@ -278,6 +278,7 @@ class SC extends Estados
                 break;
 
             case 100099:
+            case 100102:
                 if( $guia->c10_valorTotal === NULL ) throw new \InvalidArgumentException("Quando a receita é 100099 o campo 'c10_valorTotal' não pode ser NULL");
                 if( $guia->c39_camposExtras['codigo'] != 96 )throw new \InvalidArgumentException("Quando a receita é 100099 o campo 'c39_camposExtras' precisar ter um campo 'codigo' com valor 96");
                 if( $guia->c39_camposExtras['tipo'] != 'T' )throw new \InvalidArgumentException("Quando a receita é 100099 o campo 'c39_camposExtras' precisar ter um campo 'tipo' com valor T");
