@@ -10,17 +10,19 @@ $guia->c03_idContribuinteEmitente = '05698745000145';
 $guia->c28_tipoDocOrigem = '10';
 $guia->c04_docOrigem = '5712';
 $guia->c10_valorTotal = '10.00';
-$guia->c14_dataVencimento = '2016-02-01';
+$guia->c14_dataVencimento = '2016-02-20';
 $guia->c16_razaoSocialEmitente = 'Empresa Teste';
 $guia->c18_enderecoEmitente = 'Rua teste';
 $guia->c19_municipioEmitente = '17608';
 $guia->c20_ufEnderecoEmitente = 'RS';
-$guia->c33_dataPagamento = '2016-02-02';
+$guia->c33_dataPagamento = '2016-02-20';
 
 $extra = array(
-    'codigo' => 96,
-    'tipo' => 'T',
-    'valor' => '43160105556927000126550010000026161875976560'
+    0 => array(
+        'codigo' => 96,
+        'tipo' => 'T',
+        'valor' => '43160105556927000126550010000026161875976560'
+    )
 );
 $guia->c39_camposExtras = $extra;
 

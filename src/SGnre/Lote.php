@@ -114,12 +114,14 @@ class Lote
 
             if( $guia->c39_camposExtras !== NULL ){
                 $c39 = $this->dom->createElement("c39_camposExtras");
-                $c39_aux = $this->dom->createElement("campoExtra");
-                foreach( $guia->c39_camposExtras as $k => $v ){
-                    $aux = $this->dom->createElement($k,$v);
-                    $c39_aux->appendChild($aux);
+                foreach( $guia->c39_camposExtras as $campoExtra ){
+                    $c39_aux = $this->dom->createElement("campoExtra");
+                    foreach( $campoExtra as $k => $v ) {
+                        $aux = $this->dom->createElement($k, $v);
+                        $c39_aux->appendChild($aux);
+                    }
+                    $c39->appendChild($c39_aux);
                 }
-                $c39->appendChild($c39_aux);
             }
             if( $guia->codigo !== NULL )                            $codigo = $this->dom->createElement("codigo",$guia->codigo);
             if( $guia->tipo !== NULL )                              $tipo = $this->dom->createElement("tipo",$guia->tipo);

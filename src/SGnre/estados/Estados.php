@@ -31,8 +31,4 @@ abstract class Estados
     private function validarOutras(\SGnre\Guia $guia)
     {
     }
-
-    private function getDetalhamentoReceita($receta)
-    {
-    }
 }
